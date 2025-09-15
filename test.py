@@ -4,21 +4,19 @@ import asyncio
 import os
 
 # --- CONFIGURATION ---
-# Best practice: Use environment variables to keep your secrets safe!
-# For this example, you can just paste your keys here.
-OWM_API_KEY = "-----"
-TELEGRAM_TOKEN = "----"
-TELEGRAM_CHAT_ID = "----"
+# get the keys.
+OWM_API_KEY = os.getenv("OWM_API_KEY")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-# The city you want the weather for
-CITY_NAME = "Adelaide,AU"  # Example: "London,UK" or "New York,US"
+# The city of the weather for
+CITY_NAME = "Adelaide,AU"  
 
 
-# --- 1. GET WEATHER DATA ---
+#1. GET WEATHER DATA 
 def get_weather(api_key, city):
     """Fetches weather data from OpenWeatherMap API."""
-
-    # API endpoint URL with query parameters
+# API endpoint URL with query parameters
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
 
     try:
@@ -29,7 +27,7 @@ def get_weather(api_key, city):
         # Parse the JSON response
         data = response.json()
 
-        # --- Extract and format the relevant weather details ---
+        #Extract and format the relevant weather details
         main_weather = data['weather'][0]['main']
         description = data['weather'][0]['description']
         temp = data['main']['temp']
@@ -53,7 +51,7 @@ def get_weather(api_key, city):
         # Create the message string
         message = (
             f"Good Morning! ☕\n\n"
-            f"Here is your daily weather report for that big culotee {city.split(',')[0]}:\n\n"
+            f"Here is your daily weather report for  {city.split(',')[0]}:\n\n"
             f"{weather_icon} Forecast: {main_weather} ({description})\n"
             f"🌡️ Temperature: {temp}°C\n"
             f"🤔 Feels Like: {feels_like}°C\n"
@@ -70,7 +68,7 @@ def get_weather(api_key, city):
         return None
 
 
-# --- 2. SEND TELEGRAM MESSAGE ---
+# 2. SEND TELEGRAM MESSAGE ---
 async def send_telegram_message(token, chat_id, message):
     """Sends a message to a Telegram chat using the bot."""
     if not message:
@@ -98,5 +96,6 @@ async def main():
 if __name__ == "__main__":
     # The python-telegram-bot library is asynchronous, so we need to run our main function like this.
     asyncio.run(main())
+
 
 
