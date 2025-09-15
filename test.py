@@ -6,9 +6,9 @@ import os
 # --- CONFIGURATION ---
 # Best practice: Use environment variables to keep your secrets safe!
 # For this example, you can just paste your keys here.
-OWM_API_KEY = "3f9d6e247277936a22871b0b90575cef"
-TELEGRAM_TOKEN = "8221011321:AAEnf8hrGob3nJ76zsJ2gD35EnJ1i-5dM78"
-TELEGRAM_CHAT_ID = "8221011321"
+OWM_API_KEY = "-----"
+TELEGRAM_TOKEN = "----"
+TELEGRAM_CHAT_ID = "----"
 
 # The city you want the weather for
 CITY_NAME = "Adelaide,AU"  # Example: "London,UK" or "New York,US"
@@ -98,3 +98,4 @@ async def main():
 if __name__ == "__main__":
     # The python-telegram-bot library is asynchronous, so we need to run our main function like this.
     asyncio.run(main())
+
